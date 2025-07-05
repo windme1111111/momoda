@@ -1,0 +1,11 @@
+package cn.sdu;
+
+import cn.sdu.mall.MallApplication;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+public class Main {
+    public static void main(String[] args) {
+        SpringApplication.run(MallApplication.class, args);
+    }
+}
