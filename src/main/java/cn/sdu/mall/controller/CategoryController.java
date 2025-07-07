@@ -17,6 +17,9 @@ import java.util.List;
 @Tag(name = "商品分类接口") // 声明这是一个API接口（一级菜单）
 public class CategoryController {
     @Autowired
+    /*
+    * @Autowired 注解表示自动注入
+     */
     private CategoryService categoryService;
     /**
      * 查询所有商品分类
