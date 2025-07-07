@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <table align="center" width="100%" border="1">
+        <tr>
+            <th>商品编号</th>
+            <th>商品名称</th>
+            <th>商品价格</th>
+            <th>图片</th>
+            <th>描述</th>
+            <th>操作</th>
+        </tr>
+        <tr v-for="item in items">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.price}}</td>
+            <td><img :src="item.image" height="50px"></td>
+            <td>{{item.description}}</td>
+            <td>
+                <a>修改</a>
+                <a href="#" @click.prevent="deleteItem(item.id)">删除</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- 引入vue.js文件 -->
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script>
+    let config = {
+        el: '#app',
+        data: {
+            items: [
+            ]
+        },
+        methods: {
+            getItems: function () {
+// 获取地址栏url
+                let url = window.location.href
+                let cid = url.toString().split("=")[1]
+// 获取商品列表
+                axios.get('item/selectByCategoryId?categoryId=' + cid).then((response) => {
+                    console.log(response)
+                    if (response.data.code == 200 && response.data.message == 'OK') {
+                        console.log(response.data.data)
+                        this.items = response.data.data
+                    }
+                })
+            },
+            deleteItem: function (id) {
+                if (confirm('确定要删除吗？')) { // confirm() 函数 弹出带有“确定”和“取消”的对话框，点“确定”返回 true 点击“取消”false
+                    axios.delete('item/deleteById?id=' + id).then((response) => {
+                        console.log(response)
+                        if (response.data.code == 200 && response.data.message == 'OK') {
+                            alert('删除成功')
+                            this.getItems()
+                        }
+                    })
+                }
+            }
+        },
+        created: function () {
+            this.getItems()
+        }
+    }
+    let vue = new Vue(config)
+</script>
+</body>
+</html>

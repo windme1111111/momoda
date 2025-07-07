@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+actor "用户" as User
+participant "浏览器" as Browser
+participant "注册服务" as RegisterService
+participant "用户服务" as uerService
+participant "登陆服务" as loginService
+participant "下游" as merchant
+
+activate User
+User -> Browser: 访问注册页面
+
+activate Browser
+Browser -> RegisterService: 提交注册信息
+
+activate RegisterService
+RegisterService -> uerService: 注册用户
+
+activate uerService
+uerService -> RegisterService: 登陆
+Browser -> merchant: 访问商户页面
+deactivate uerService
+
+
+loginService -> merchant: 访问商户页面
+merchant -> loginService: 访问商户页面
+loginService -> Browser: 登陆成功
+Browser --> User: 返回结果
+
+
+
+
+@enduml

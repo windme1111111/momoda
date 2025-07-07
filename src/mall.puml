@@ -1,0 +1,39 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface CategoryService {
+
+   +selectAll():List<Category>
+   }
+interface ItemService {
+      +selectAll():List<Item>
+      }
+interface CategoryMapper {
+   +selectAll():List<Category>
+   }
+
+interface ItemMapper {
+   +selectAll():List<Item>
+   }
+
+class CategoryServiceImpl {
+   +selectAll():List<Category>
+   }
+class ItemServiceImpl {
+   +selectAll():List<Item>
+   }
+
+   class Category {
+   +id:int
+   +name:String
+   }
+   class Item {
+   +id:int
+   +name:String
+   }
+CategoryService <|.. CategoryServiceImpl
+ItemService <|.. ItemServiceImpl
+CategoryService ..> CategoryMapper
+ItemService ..> ItemMapper
+
+@enduml
